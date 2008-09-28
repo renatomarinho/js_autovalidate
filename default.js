@@ -73,8 +73,13 @@ var Validation = {
 				
 				for( v in accept){
 					
-					if ( Utils.InArray(accept[v], Validation.Modes))
+					
+					
+					if ( Utils.InArray(accept[v], Validation.Modes)){
+						
 						Validation.SelectedOption(accept[v]);
+						
+					}
 					
 				}
 				
@@ -88,13 +93,15 @@ var Validation = {
 	
 	ShowMessages : function (){
 		
-		for (i=0;i<Mode.iError;i++){
-			
-			var ni = Utils.dgeID('Errors');
-			var ndiv = document.createElement('div');
-		 	ndiv.setAttribute('id','FormMessages');
-		 	ndiv.innerHTML = '<font color="red">'+Validation.Message[i]+'</font>';
-		 	ni.appendChild(ndiv);
+		for (i=0;i<Mode.iError;i++){	
+		
+			if (Validation.Message[i]){
+				var ni = Utils.dgeID('Errors');
+				var ndiv = document.createElement('div');
+			 	ndiv.setAttribute('id','FormMessages');
+			 	ndiv.innerHTML = '<font color="red">'+Validation.Message[i]+'</font>';
+			 	ni.appendChild(ndiv);
+			}
 	 	
 		}
 		
@@ -104,8 +111,10 @@ var Validation = {
 	
 	SelectedOption : function (option){
 		
-		if ( option.toLowerCase() ==  (Validation.Modes[0]).toLowerCase() ){
+		if ( option.toLowerCase() == (Validation.Modes[0]).toLowerCase() ){
 			Mode.NotNull();
+		} else if ( option.toLowerCase() == (Validation.Modes[1]).toLowerCase() ) { 
+			Mode.Email();
 		}
 		
 	},
@@ -134,18 +143,41 @@ var Mode = {
 	iError	: 0,
 	iInput	: new Array(),
 		
-	NotNull : function(){
+	NotNull : function (){
 		
 		if (!Validation.iValue){
-			Validation.Message[Mode.iError] = " <b>"+Validation.iName+"</b>";
+			
+			Validation.Message[Mode.iError] = "Not Null - <b>"+Validation.iName+"</b>";
 			Mode.iInput[Mode.iError] = Validation.iId;
 			Mode.WithBorder(Validation.iId);
 			Mode.IndexSum();
+			
 		} else {
+			
 			Mode.iInput[Mode.iError] = '';
 			Mode.WithoutBorder(Validation.iId);
+			
 		}
 	
+	},
+	
+	Email : function (){
+		
+		val = new RegExp("^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$");
+		
+		if (!val.test(Validation.iValue)&&Validation.iValue) {
+			
+			Validation.Message[Mode.iError] = "E-mail - <b>"+Validation.iName+"</b>";
+			Mode.iInput[Mode.iError] = Validation.iId;
+			Mode.WithBorder(Validation.iId);
+			Mode.IndexSum();
+	  	
+		} else {
+	  	
+			Mode.iInput[Mode.iError] = '';
+	  		Mode.WithoutBorder(Validation.iId);
+	  	
+		}
 	},
 
 	IndexSum : function (){
@@ -153,14 +185,17 @@ var Mode = {
 	},
 		
 	WithBorder : function (e){
+		
 		if (Utils.dgeID(e))
 			Utils.dgeID(e).style.border = '1px solid red';
+		
 	},
 	
 	WithoutBorder : function (e){
-		if (!Utils.InArray(e,Mode.iInput) && Utils.dgeID(e)){
+		
+		if (!Utils.InArray(e,Mode.iInput) && Utils.dgeID(e))
 			Utils.dgeID(e).style.border = '1px solid #c0c0c0';
-		}
+		
 	}
 		
 };
