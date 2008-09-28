@@ -1,0 +1,40 @@
+-----------------------------------------------------------------------	
+	JS Auto Validate
+-----------------------------------------------------------------------
+
+The objetive is easy, create the validation of html with javascript
+many simple and fast for all levels of development
+
+Actualy the file "default.js" have two types to validate :
+
+	Not Null and E-mail 
+	
+	
+Using "default.js" in your project, add the type of validation for the
+<input type="text" in property ACCEPT.
+
+
+Properties of tags INPUT :
+
+	ACCEPT receive the type of validation
+	
+	TITLE receive the name for input
+
+
+DIV to show messages errors :
+
+	<div id="Errors"></div>
+
+
+Exemple :
+
+	- This input is required NotNull and Email
+		<input type="text" name="username" title="Username"	accept="notnull,email" />
+	
+	- This input is required only Email
+		<input type="text" name="email" title="Username"	accept="email" />
+	
+	- This input is required only NotNull
+		<input type="text" name="username" title="Username"	accept="notnull" />
+	
+	
