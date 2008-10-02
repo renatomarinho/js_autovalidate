@@ -44,7 +44,7 @@ var Utils = {
 	
 	WithoutBorder : function (e){
 		
-		if (!Utils.InArray(e,Mode.iInput) && Utils.dgeID(e))
+		if (!Utils.InArray(e,Utils.iInput) && Utils.dgeID(e))
 			Utils.dgeID(e).style.border = '1px solid #c0c0c0';
 		
 	}
