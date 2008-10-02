@@ -7,6 +7,9 @@ window.onload = function (){
 
 var Utils = {
 		
+	iError	: 0,
+	iInput	: new Array(),	
+		
 	dgeID : function (e){
 		return document.getElementById(e);
 	},
@@ -26,6 +29,24 @@ var Utils = {
 		
 		return false;
 		
+	},
+	
+	IndexSum : function (){
+		Mode.iError++;
+	},
+		
+	WithBorder : function (e){
+		
+		if (Utils.dgeID(e))
+			Utils.dgeID(e).style.border = '1px solid red';
+		
+	},
+	
+	WithoutBorder : function (e){
+		
+		if (!Utils.InArray(e,Mode.iInput) && Utils.dgeID(e))
+			Utils.dgeID(e).style.border = '1px solid #c0c0c0';
+		
 	}
 		
 };
@@ -36,7 +57,7 @@ var Validation = {
 	 * Method name availables
 	 * Add the new methods here 
 	 */	
-	Modes : new Array('NotNull', 'Email', 'AZ', '09', 'CPF'),
+	Modes : new Array('NotNull', 'Email'),
 		
 	Message : new Array(),
 	
@@ -73,8 +94,6 @@ var Validation = {
 				
 				for( v in accept){
 					
-					
-					
 					if ( Utils.InArray(accept[v], Validation.Modes)){
 						
 						Validation.SelectedOption(accept[v]);
@@ -96,11 +115,13 @@ var Validation = {
 		for (i=0;i<Mode.iError;i++){	
 		
 			if (Validation.Message[i]){
+				
 				var ni = Utils.dgeID('Errors');
 				var ndiv = document.createElement('div');
 			 	ndiv.setAttribute('id','FormMessages');
 			 	ndiv.innerHTML = '<font color="red">'+Validation.Message[i]+'</font>';
 			 	ni.appendChild(ndiv);
+			 	
 			}
 	 	
 		}
@@ -111,10 +132,10 @@ var Validation = {
 	
 	SelectedOption : function (option){
 		
-		if ( option.toLowerCase() == (Validation.Modes[0]).toLowerCase() ){
-			Mode.NotNull();
-		} else if ( option.toLowerCase() == (Validation.Modes[1]).toLowerCase() ) { 
-			Mode.Email();
+		for (i in Validation.Modes ){
+			if (option.toLowerCase() == (Validation.Modes[i]).toLowerCase()){
+				eval("Mode."+Validation.Modes[i]+"()");
+			}
 		}
 		
 	},
@@ -140,22 +161,19 @@ var Validation = {
 
 var Mode = {
 		
-	iError	: 0,
-	iInput	: new Array(),
-		
 	NotNull : function (){
 		
 		if (!Validation.iValue){
 			
-			Validation.Message[Mode.iError] = "Not Null - <b>"+Validation.iName+"</b>";
-			Mode.iInput[Mode.iError] = Validation.iId;
-			Mode.WithBorder(Validation.iId);
-			Mode.IndexSum();
+			Validation.Message[Utils.iError] = "Not Null - <b>"+Validation.iName+"</b>";
+			Utils.iInput[Utils.iError] = Validation.iId;
+			Utils.WithBorder(Validation.iId);
+			Utils.IndexSum();
 			
 		} else {
 			
-			Mode.iInput[Mode.iError] = '';
-			Mode.WithoutBorder(Validation.iId);
+			Utils.iInput[Utils.iError] = '';
+			Utils.WithoutBorder(Validation.iId);
 			
 		}
 	
@@ -167,35 +185,19 @@ var Mode = {
 		
 		if (!val.test(Validation.iValue)&&Validation.iValue) {
 			
-			Validation.Message[Mode.iError] = "E-mail - <b>"+Validation.iName+"</b>";
-			Mode.iInput[Mode.iError] = Validation.iId;
-			Mode.WithBorder(Validation.iId);
-			Mode.IndexSum();
+			Validation.Message[Utils.iError] = "E-mail - <b>"+Validation.iName+"</b>";
+			Utils.iInput[Utils.iError] = Validation.iId;
+			Utils.WithBorder(Validation.iId);
+			Utils.IndexSum();
 	  	
 		} else {
 	  	
-			Mode.iInput[Mode.iError] = '';
-	  		Mode.WithoutBorder(Validation.iId);
+			Utils.iInput[Mode.iError] = '';
+			Utils.WithoutBorder(Validation.iId);
 	  	
 		}
-	},
-
-	IndexSum : function (){
-		Mode.iError++;
-	},
-		
-	WithBorder : function (e){
-		
-		if (Utils.dgeID(e))
-			Utils.dgeID(e).style.border = '1px solid red';
-		
-	},
-	
-	WithoutBorder : function (e){
-		
-		if (!Utils.InArray(e,Mode.iInput) && Utils.dgeID(e))
-			Utils.dgeID(e).style.border = '1px solid #c0c0c0';
-		
 	}
+
+	
 		
 };
