@@ -12,19 +12,19 @@ Actualy the file "default.js" you can create two basic types of validation rules
 Use "default.js" in your project, add a rule <input type="text" in property ACCEPT.
 
 
-Properties of tags INPUT :
+Properties of tag INPUT :
 
 	ACCEPT receive the type of validation
 	
 	TITLE receive the name for input
 
 
-DIV to show messages errors :
+DIV to display error message :
 
 	<div id="Errors"></div>
 
 
-Exemple :
+Example :
 
 	- Its input required NotNull and Email
 		<input type="text" name="username" title="Username" accept="notnull,email" />
