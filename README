@@ -4,11 +4,8 @@
 
 You must define the validation rules in a HTML file. It`s very simple and fast.
 
-Actualy the file "default.js" you can create two basic types of validation rules:
-
-	Not Null and E-mail 
-	
-	
+You can create two basic types of validation rules: Not Null and E-mail 
+		
 Add the file "default.js" in project and define a rule <input type="text" in property ACCEPT.
 
 
