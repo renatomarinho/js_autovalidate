@@ -9,7 +9,7 @@ Actualy the file "default.js" you can create two basic types of validation rules
 	Not Null and E-mail 
 	
 	
-Use "default.js" in your project, add a rule <input type="text" in property ACCEPT.
+Add the file "default.js" in project and define a rule <input type="text" in property ACCEPT.
 
 
 Properties of tag INPUT :
